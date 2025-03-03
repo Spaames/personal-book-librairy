@@ -13,10 +13,14 @@
     "@chakra-ui/react": "^2.10.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@reduxjs/toolkit": "^2.6.0",
     "framer-motion": "^12.4.7",
     "next": "15.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
