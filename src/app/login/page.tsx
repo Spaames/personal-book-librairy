@@ -1,6 +1,6 @@
 'use client'
 
-import {FormEvent, useEffect, useState} from 'react';
+import {FormEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useRouter} from "next/navigation";
 import {Alert, AlertIcon, Box, Button, Flex, FormControl, FormLabel, Heading, Input, Stack, Link, Text} from "@chakra-ui/react";
@@ -22,11 +22,9 @@ const Page = () => {
     }
 
     //redirect if we successfully logged
-    useEffect(() => {
-        if (isAuthenticated) {
-            router.push('/home');
-        }
-    }, [isAuthenticated, router]);
+    if (isAuthenticated) {
+        router.push('/home');
+    }
 
     return (
         <Flex minHeight="100vh" align="center" justify="center">
