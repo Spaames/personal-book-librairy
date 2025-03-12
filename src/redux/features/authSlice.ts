@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from "@/redux/store";
-
-interface User {
-    username: string;
-}
+import {User} from "@/utils/types";
 
 interface AuthState {
     isAuthenticated: boolean;

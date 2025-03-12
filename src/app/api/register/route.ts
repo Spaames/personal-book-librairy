@@ -7,7 +7,7 @@ import {dbName} from "@/utils/mongodb";
  * POST /api/register
  * Body JSON : { username, fistName, lastName, password }
  *
- * Register the user in DB with hashed password
+ * Register the user in DB with hashed password and create an epmty library
  */
 
 export async function POST(req: NextRequest) {
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
         const mongoClient = await mongoClientPromise;
         const db = mongoClient.db(dbName);
         const usersCollection = db.collection("users");
+        const libraryCollection = db.collection("libraries");
 
         const existingUser = await usersCollection.findOne({ username });
         if (existingUser) {
@@ -30,6 +31,11 @@ export async function POST(req: NextRequest) {
         const hashedPass = await bcrypt.hash(password, 10);
 
         const result = await usersCollection.insertOne({ username, firstName, lastName, password: hashedPass });
+
+        await libraryCollection.insertOne({
+            username,
+            books: []
+        });
 
         return NextResponse.json({ message: "User registered", userId: result.insertedId }, {status: 201});
     }
