@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import {
     Box,
     Button,
@@ -13,12 +12,11 @@ import {
     Stack,
     Link,
     Text,
-    Alert,
-    AlertIcon,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import {useAppDispatch} from "@/redux/hook";
 import {registerThunk} from "@/redux/features/authSlice";
+import AlertInfo from "@/components/AlertInfo";
 
 export default function RegisterPage() {
     // State for form fields
@@ -27,25 +25,24 @@ export default function RegisterPage() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
-    const router = useRouter();
+    const [alert, setAlert] = useState<{ message: string; type: "error" | "success" | "info" } | null>(null);
     const dispatch = useAppDispatch();
 
     // Handle form submission
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            setError("Passwords do not match.");
+            setAlert({message: "Passwords do not match", type: "error"});
             return;
         }
 
         // Clear the error and proceed with registration logic
-        setError("");
+        setAlert(null);
         try {
             dispatch(registerThunk(username, firstName, lastName, password));
-            router.push("/login");
+            setAlert({message: "Successfully registered", type: "success"});
         } catch {
-            setError("Error while registering in DB");
+            setAlert({message: "Error with the api call", type: "error"});
         }
     };
 
@@ -63,12 +60,7 @@ export default function RegisterPage() {
                 </Box>
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={4}>
-                        {error && (
-                            <Alert status="error" mb={4}>
-                                <AlertIcon />
-                                {error}
-                            </Alert>
-                        )}
+                        {alert && <AlertInfo text={alert.message} type={alert.type} />}
                         <FormControl id="username" isRequired>
                             <FormLabel>Username</FormLabel>
                             <Input

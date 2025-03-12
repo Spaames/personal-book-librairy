@@ -16,21 +16,25 @@ import {useState} from "react";
 import {Book, BookSearch} from "@/utils/types";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {addBookThunk} from "@/redux/features/librarySlice";
+import AlertInfo from "@/components/AlertInfo";
 
 export default function Page() {
     const [searchResults, setSearchResults] = useState<BookSearch[]>([]);
     const username = useAppSelector(state => state.auth.user.username);
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
     const dispatch = useAppDispatch();
+    const [alert, setAlert] = useState<{ message: string; type: "error" | "success" | "info" } | null>(null);
 
     //call external api to check books
     const handleSearch = async (query: string) => {
         if (!query) return;
+        setAlert(null);
         try {
             const response = await fetch(`http://127.0.0.1:5000/search?query=${query}`);
             const data = await response.json();
             setSearchResults(data);
         } catch (error) {
+            setAlert({message: "Failed to call api", type: "error"});
             console.error('Erreur lors de la recherche:', error);
         }
     };
@@ -46,18 +50,29 @@ export default function Page() {
 
     //get all data for the specific book, add the selected status and push it to the library in DB
     const handleAddBook = async (url: string) => {
-        const response = await fetch(`http://127.0.0.1:5000/book?query=${url}`);
-        const data = await response.json();
-        const book: Book = {
-            ean: data.ean,
-            title: data.title,
-            author: data.author,
-            resume: data.resume,
-            img: data.img,
-            pages: data.pages,
-            status: selectedCategory,
+        if (selectedCategory === 0 || -1) {
+            setAlert({message: "Please select a category", type: "error"});
+            return;
         }
-        dispatch(addBookThunk(book, username));
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/book?query=${url}`);
+            const data = await response.json();
+            const book: Book = {
+                ean: data.ean,
+                title: data.title,
+                author: data.author,
+                resume: data.resume,
+                img: data.img,
+                pages: data.pages,
+                status: selectedCategory,
+            }
+            dispatch(addBookThunk(book, username));
+            setAlert({message: "Book added :)", type: "success"});
+        } catch (error) {
+            setAlert({message: "Failed to add book (api)", type: "error"});
+            console.log(error);
+        }
+
     }
 
 
@@ -65,6 +80,7 @@ export default function Page() {
         <Box minH="100vh">
             <SearchBar onSearch={handleSearch} />
             <Box>
+                {alert && <AlertInfo text={alert.message} type={alert.type} />}
                 {searchResults.map((book, index) => (
                     <Card key={index} mb={3}>
                         <CardBody>
