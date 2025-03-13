@@ -7,7 +7,7 @@ import {
     CardBody,
     HStack,
     Image,
-    Select,
+    Select, Stack,
     Text,
     VStack
 } from "@chakra-ui/react";
@@ -50,7 +50,8 @@ export default function Page() {
 
     //get all data for the specific book, add the selected status and push it to the library in DB
     const handleAddBook = async (url: string) => {
-        if (selectedCategory === 0 || -1) {
+        if (selectedCategory === -1) {
+            console.log("selectedCategory", selectedCategory);
             setAlert({message: "Please select a category", type: "error"});
             return;
         }
@@ -77,27 +78,42 @@ export default function Page() {
 
 
     return (
-        <Box minH="100vh">
+        <Box minH="100vh" p={4}>
             <SearchBar onSearch={handleSearch} />
             <Box>
                 {alert && <AlertInfo text={alert.message} type={alert.type} />}
                 {searchResults.map((book, index) => (
                     <Card key={index} mb={3}>
                         <CardBody>
-                            <HStack spacing={2} justifyContent="space-between" w="100%">
-                                <HStack spacing={4}>
-                                    <Box>
-                                        <Image src={fixAmazonUrl(book.img)} alt="Book Cover" />
+                            <Stack
+                                direction={{ base: "column", md: "row" }}
+                                spacing={4}
+                                justifyContent="space-between"
+                                w="100%"
+                            >
+                                <HStack spacing={4} align="flex-start">
+                                    <Box boxSize={{ base: "100px", md: "150px" }} flexShrink={0}>
+                                        <Image
+                                            src={fixAmazonUrl(book.img)}
+                                            alt="Book Cover"
+                                            boxSize="100%"
+                                            objectFit="cover"
+                                            borderRadius="md"
+                                        />
                                     </Box>
-                                    <VStack align="start">
-                                        <Text fontSize="lg" fontWeight="bold">{book.title}</Text>
-                                        <Text fontSize="md">{book.author}</Text>
+                                    <VStack align="start" spacing={2} flex={1}>
+                                        <Text fontSize="lg" fontWeight="bold" noOfLines={2}>
+                                            {book.title}
+                                        </Text>
+                                        <Text fontSize="md" noOfLines={1}>
+                                            {book.author}
+                                        </Text>
                                     </VStack>
                                 </HStack>
-                                <HStack spacing={4}>
+                                <VStack align="stretch" spacing={2} mt={{ base: 4, md: 0 }}>
                                     <Select
                                         placeholder="Choisir une catégorie"
-                                        w="200px"
+                                        w="100%"
                                         onChange={(e) => setSelectedCategory(parseInt(e.target.value))}
                                     >
                                         <option value="1">À lire</option>
@@ -105,11 +121,15 @@ export default function Page() {
                                         <option value="3">À acheter</option>
                                         <option value="4">En cours de lecture</option>
                                     </Select>
-                                    <Button colorScheme="blue" onClick={() => {handleAddBook(book.book_url)}}>
+                                    <Button
+                                        colorScheme="blue"
+                                        onClick={() => handleAddBook(book.book_url)}
+                                        w="100%"
+                                    >
                                         Ajouter à la bibliothèque
                                     </Button>
-                                </HStack>
-                            </HStack>
+                                </VStack>
+                            </Stack>
                         </CardBody>
                     </Card>
                 ))}
