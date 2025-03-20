@@ -2,12 +2,12 @@ import {BookSearch} from "@/utils/types";
 import React, {useState} from "react";
 import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Select, Button} from "@chakra-ui/react";
 
-interface BookCardProps {
+interface BookCardSearchProps {
     book: BookSearch;
     onAddBook: (url: string, status: number) => void;
 }
 
-export default function BookCard({ book, onAddBook }: BookCardProps) {
+export default function BookCardSearch({ book, onAddBook }: BookCardSearchProps) {
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
 
     //fix url of book's cover. Sometimes it's from babelio, others it's from amazon (so I don't need to add https://www.babelio.com/ before)

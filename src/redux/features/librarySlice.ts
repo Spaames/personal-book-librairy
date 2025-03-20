@@ -33,12 +33,17 @@ const librarySlice = createSlice({
             state.error = null;
             state.books.push(action.payload);
         },
+        getLibrarySuccess(state, action: PayloadAction<Book[]>) {
+            state.loading = false;
+            state.error = null;
+            state.books = action.payload;
+        },
     },
 });
 
 export const {
     startThunk, failureThunk,
-    addBookSuccess,
+    addBookSuccess, getLibrarySuccess
 } = librarySlice.actions;
 
 /*
@@ -64,6 +69,26 @@ export const addBookThunk = (book: Book, username: string): AppThunk => async (d
     } catch (e) {
         console.error(e);
         dispatch(failureThunk('Error w THUNK: addBook'))
+    }
+}
+
+export const getLibrary = (username: string): AppThunk => async (dispatch) => {
+    try {
+        dispatch(startThunk());
+        const response = await fetch('/api/getLibrary', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({username})
+        });
+        const data = await response.json();
+        if (response.ok) {
+            dispatch(getLibrarySuccess(data.books));
+        } else {
+            dispatch(failureThunk(data.message));
+        }
+    } catch (e) {
+        console.error(e);
+        dispatch(failureThunk('Error w THUNK: getLibrary'))
     }
 }
 

@@ -9,7 +9,7 @@ import {Book, BookSearch} from "@/utils/types";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {addBookThunk} from "@/redux/features/librarySlice";
 import AlertInfo from "@/components/AlertInfo";
-import BookCard from "@/components/BookCard";
+import BookCardSearch from "@/components/BookCardSearch";
 
 export default function Page() {
     const [searchResults, setSearchResults] = useState<BookSearch[]>([]);
@@ -63,7 +63,7 @@ export default function Page() {
             <Box>
                 {alert && <AlertInfo text={alert.message} type={alert.type} />}
                 {searchResults.map((book, index) => (
-                    <BookCard key={index} book={book} onAddBook={handleAddBook} />
+                    <BookCardSearch key={index} book={book} onAddBook={handleAddBook} />
                 ))}
             </Box>
         </Box>

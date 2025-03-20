@@ -1,16 +1,18 @@
 import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authReducer from "@/redux/features/authSlice"
+import authReducer from "@/redux/features/authSlice";
+import libraryReducer from "@/redux/features/librarySlice";
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["auth"],
+    whitelist: ["auth", "library"],
 };
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    library: libraryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
