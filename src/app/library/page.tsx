@@ -1,6 +1,6 @@
 'use client'
 
-import {Box, Text} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 import FilterBar from "@/components/FilterBar";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useEffect, useState} from "react";
@@ -15,9 +15,13 @@ export default function Page(){
     const username = useAppSelector((state) => state.auth.user.username);
 
     useEffect(() => {
-        dispatch(getLibrary(username))
+        dispatch(getLibrary(username));
+    }, [dispatch, username]);
+
+    useEffect(() => {
         setFilteredLibrary(library);
-    }, [dispatch, library, username]);
+    }, [library]);
+
 
     const filterStatus = (status: number): Book[] => {
         return library.filter((book) => book.status === status);
@@ -32,8 +36,7 @@ export default function Page(){
     }
 
     const handleChangeStatus = (book: Book, status: number) => {
-        console.log(book);
-        console.log(status);
+        //to do
     }
 
     return (

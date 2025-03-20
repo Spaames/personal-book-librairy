@@ -1,7 +1,7 @@
 import {Book} from "@/utils/types";
 import React, {useState} from "react";
 import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Select, Button} from "@chakra-ui/react";
-import {fixAmazonUrl} from "@/utils/functions";
+import {fixAmazonUrl, getStatusName} from "@/utils/functions";
 
 interface BookCardLibraryProps {
     book: Book;
@@ -41,7 +41,7 @@ export default function BookCardSearch({ book, changeStatus}: BookCardLibraryPro
                     </HStack>
                     <VStack align="stretch" spacing={2} mt={{ base: 4, md: 0 }}>
                         <Select
-                            placeholder="Changer le status"
+                            placeholder={getStatusName(book.status)}
                             w="100%"
                             onChange={(e) => setSelectedCategory(parseInt(e.target.value))}
                         >
@@ -56,6 +56,11 @@ export default function BookCardSearch({ book, changeStatus}: BookCardLibraryPro
                             isDisabled={selectedCategory === 0}
                         >
                             Modifier le status
+                        </Button>
+                        <Button
+                        colorScheme="red"
+                        >
+                            Supprimer
                         </Button>
                     </VStack>
                 </Stack>

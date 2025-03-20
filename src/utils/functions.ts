@@ -7,3 +7,15 @@ export const fixAmazonUrl = (url: string): string => {
     }
     return url;
 }
+
+export const getStatusName = (status: number): string => {
+    switch (status) {
+        case 1:
+            return "A lire";
+        case 2:
+            return "Lu";
+        case 4:
+            return "En cours de lecture"
+    }
+    return ""
+}
