@@ -1,6 +1,7 @@
 import {Book} from "@/utils/types";
 import React, {useState} from "react";
 import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Select, Button} from "@chakra-ui/react";
+import {fixAmazonUrl} from "@/utils/functions";
 
 interface BookCardLibraryProps {
     book: Book;
@@ -22,7 +23,7 @@ export default function BookCardSearch({ book, changeStatus}: BookCardLibraryPro
                     <HStack spacing={4} align="flex-start">
                         <Box boxSize={{ base: "100px", md: "150px" }} flexShrink={0}>
                             <Image
-                                src={book.img}
+                                src={fixAmazonUrl(book.img)}
                                 alt="Book Cover"
                                 boxSize="100%"
                                 objectFit="cover"
