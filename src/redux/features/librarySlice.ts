@@ -126,13 +126,13 @@ export const deleteBookThunk = (bookEan: string, username: string): AppThunk => 
     }
 }
 
-export const updateStatusThunk = (bookEan: string): AppThunk => async (dispatch) => {
+export const updateStatusThunk = (bookEan: string, newStatus: number, username: string): AppThunk => async (dispatch) => {
     try {
         dispatch(startThunk());
         const response = await fetch('/api/updateStatusBookLib', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({bookEan})
+            body: JSON.stringify({bookEan, newStatus, username})
         });
         const data = await response.json();
         if (response.ok) {

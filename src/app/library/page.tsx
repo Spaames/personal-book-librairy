@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useEffect, useState} from "react";
 import {Book} from "@/utils/types";
 import BookCardLibrary from "@/components/BookCardLibrary";
-import {getLibrary} from "@/redux/features/librarySlice";
+import {getLibrary, updateStatusThunk} from "@/redux/features/librarySlice";
 export default function Page(){
     const [filteredLibrary, setFilteredLibrary] = useState<Book[]>([]);
     const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ export default function Page(){
     }
 
     const handleChangeStatus = (book: Book, status: number) => {
-        //to do
+        dispatch(updateStatusThunk(book.ean, status, username));
     }
 
     return (
