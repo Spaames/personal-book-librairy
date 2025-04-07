@@ -3,7 +3,7 @@ import mongoClientPromise from "@/utils/mongodb";
 import {dbName} from "@/utils/mongodb";
 
 /**
- * POST /api/addBook
+ * POST /api/addBookLib
  * Body JSON : { book, username }
  *
  * Add book to the user's library

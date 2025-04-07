@@ -30,7 +30,7 @@ export default function Page() {
                 p={4}
             >
                 <HomeButton text={"Library"} colorScheme={"blue"} url={"/library"} />
-                <HomeButton text={"Add Book"} colorScheme={"blue"} url={"/addBook"} />
+                <HomeButton text={"Add Book"} colorScheme={"blue"} url={"/addBookLib"} />
                 <HomeButton text={"Wishlist"} colorScheme={"blue"} url={"/wishlist"} />
                 <HomeButton text={"Account"} colorScheme={"blue"} url={"/account"} />
             </Box>

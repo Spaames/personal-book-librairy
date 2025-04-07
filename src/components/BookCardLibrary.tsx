@@ -2,6 +2,8 @@ import {Book} from "@/utils/types";
 import React, {useState} from "react";
 import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Select, Button} from "@chakra-ui/react";
 import {fixAmazonUrl, getStatusName} from "@/utils/functions";
+import {useAppDispatch, useAppSelector} from "@/redux/hook";
+import {deleteBookThunk} from "@/redux/features/librarySlice";
 
 interface BookCardLibraryProps {
     book: Book;
@@ -10,6 +12,8 @@ interface BookCardLibraryProps {
 
 export default function BookCardSearch({ book, changeStatus}: BookCardLibraryProps) {
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
+    const dispatch = useAppDispatch();
+    const username = useAppSelector((state) => state.auth.user.username);
 
     return (
         <Card mb={3}>
@@ -59,6 +63,7 @@ export default function BookCardSearch({ book, changeStatus}: BookCardLibraryPro
                         </Button>
                         <Button
                         colorScheme="red"
+                        onClick={() => dispatch(deleteBookThunk(book.ean, username))}
                         >
                             Supprimer
                         </Button>

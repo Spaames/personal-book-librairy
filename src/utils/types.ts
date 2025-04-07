@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface Book {
-    ean: number;
+    ean: string;
     title: string;
     author: string;
     resume: string;
@@ -18,3 +18,9 @@ export interface Book {
     pages: number;
     status: number;
 }
+
+export type LibraryDocument = {
+    _id: string;
+    username: string;
+    books: Book[];
+};

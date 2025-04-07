@@ -38,12 +38,25 @@ const librarySlice = createSlice({
             state.error = null;
             state.books = action.payload;
         },
+        deleteBookSuccess(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = null;
+            state.books = state.books.filter((book) => book.ean !== action.payload);
+        },
+        updateBookStatusSuccess(state, action: PayloadAction<Book>) {
+            state.loading = false;
+            state.error = null;
+            const book = state.books.find(b => b.ean === action.payload.ean);
+            if (book) {
+                book.status = action.payload.status;
+            }
+        },
     },
 });
 
 export const {
     startThunk, failureThunk,
-    addBookSuccess, getLibrarySuccess
+    addBookSuccess, getLibrarySuccess, deleteBookSuccess, updateBookStatusSuccess,
 } = librarySlice.actions;
 
 /*
@@ -55,7 +68,7 @@ export const {
 export const addBookThunk = (book: Book, username: string): AppThunk => async (dispatch) => {
     try {
         dispatch(startThunk());
-        const response = await fetch('/api/addBook', {
+        const response = await fetch('/api/addBookLib', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({book, username})
@@ -68,7 +81,7 @@ export const addBookThunk = (book: Book, username: string): AppThunk => async (d
         }
     } catch (e) {
         console.error(e);
-        dispatch(failureThunk('Error w THUNK: addBook'))
+        dispatch(failureThunk('Error w THUNK: addBookLib'))
     }
 }
 
@@ -89,6 +102,47 @@ export const getLibrary = (username: string): AppThunk => async (dispatch) => {
     } catch (e) {
         console.error(e);
         dispatch(failureThunk('Error w THUNK: getLibrary'))
+    }
+}
+
+export const deleteBookThunk = (bookEan: string, username: string): AppThunk => async (dispatch) => {
+    try {
+        dispatch(startThunk());
+        const response = await fetch('/api/deleteBookLib', {
+            method: "DELETE",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({bookEan, username})
+        });
+        const data = await response.json();
+        if (response.ok) {
+            dispatch(deleteBookSuccess(data.ean));
+        } else {
+            dispatch(failureThunk(data.message));
+        }
+    }
+    catch (e) {
+        console.error(e);
+        dispatch(failureThunk('Error w THUNK: deleteBookThunk'))
+    }
+}
+
+export const updateStatusThunk = (bookEan: string): AppThunk => async (dispatch) => {
+    try {
+        dispatch(startThunk());
+        const response = await fetch('/api/updateStatusBookLib', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({bookEan})
+        });
+        const data = await response.json();
+        if (response.ok) {
+            dispatch(updateBookStatusSuccess(data.book));
+        } else {
+            dispatch(failureThunk(data.message));
+        }
+    } catch (e) {
+        console.error(e);
+        dispatch(failureThunk('Error w THUNK: updateStatusThunk'))
     }
 }
 
