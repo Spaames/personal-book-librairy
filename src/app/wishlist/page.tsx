@@ -8,6 +8,7 @@ import {getWishlistThunk, removeBookThunk} from "@/redux/features/wishlistSlice"
 import BookCardWishlist from "@/components/BookCardWishlist";
 import {Book} from "@/utils/types";
 import {addBookThunk} from "@/redux/features/librarySlice";
+import HeaderBar from "@/components/HeaderBar";
 
 export default function Page() {
     const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ export default function Page() {
 
     return (
         <Box minH="100vh">
+            <HeaderBar/>
             <Box>
                 {wishlist.map((book, index) => (
                     <BookCardWishlist key={index} book={book} changeStatus={handleChangeStatus} />

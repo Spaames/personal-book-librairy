@@ -6,6 +6,7 @@ import {useAppDispatch} from "@/redux/hook";
 import {logoutThunk} from "@/redux/features/authSlice";
 import {useRouter} from "next/navigation";
 import HomeButton from "@/components/HomeButton";
+import HeaderBar from "@/components/HeaderBar";
 
 export default function Page() {
     const dispatch = useAppDispatch();
@@ -18,9 +19,7 @@ export default function Page() {
 
     return (
         <Box>
-            <Box textAlign="center" p={4}>
-                <Heading as="h1" size="xl">Accueil</Heading>
-            </Box>
+            <HeaderBar/>
             <Box
                 display="grid"
                 gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}

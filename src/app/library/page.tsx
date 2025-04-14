@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {Book} from "@/utils/types";
 import BookCardLibrary from "@/components/BookCardLibrary";
 import {getLibrary, updateStatusThunk} from "@/redux/features/librarySlice";
+import HeaderBar from "@/components/HeaderBar";
 export default function Page(){
     const [filteredLibrary, setFilteredLibrary] = useState<Book[]>([]);
     const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ export default function Page(){
 
     return (
         <Box minH="100vh" p={4}>
+            <HeaderBar/>
             <FilterBar filterBook={handleFilter} />
             <Box>
                 {filteredLibrary.map((book, index) => (

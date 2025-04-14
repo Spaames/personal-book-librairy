@@ -11,6 +11,7 @@ import {addBookThunk} from "@/redux/features/librarySlice";
 import AlertInfo from "@/components/AlertInfo";
 import BookCardSearch from "@/components/BookCardSearch";
 import {addBookWishThunk} from "@/redux/features/wishlistSlice";
+import HeaderBar from "@/components/HeaderBar";
 
 export default function Page() {
     const [searchResults, setSearchResults] = useState<BookSearch[]>([]);
@@ -67,6 +68,7 @@ export default function Page() {
 
     return (
         <Box minH="100vh" p={4}>
+            <HeaderBar/>
             <SearchBar onSearch={handleSearch} />
             <Box>
                 {alert && <AlertInfo text={alert.message} type={alert.type} />}
