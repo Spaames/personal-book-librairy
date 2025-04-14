@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {addBookThunk} from "@/redux/features/librarySlice";
 import AlertInfo from "@/components/AlertInfo";
 import BookCardSearch from "@/components/BookCardSearch";
+import {addBookWishThunk} from "@/redux/features/wishlistSlice";
 
 export default function Page() {
     const [searchResults, setSearchResults] = useState<BookSearch[]>([]);
@@ -47,8 +48,15 @@ export default function Page() {
             }
             console.log(book);
             console.log(username);
-            dispatch(addBookThunk(book, username));
-            setAlert({message: "Book added :)", type: "success"});
+
+            if(status === 3) {
+                book.status = 1;
+                dispatch(addBookWishThunk(book, username));
+                setAlert({message: "Book added to the wishlist:)", type: "success"});
+            } else {
+                dispatch(addBookThunk(book, username));
+                setAlert({message: "Book added :)", type: "success"});
+            }
         } catch (error) {
             setAlert({message: "Failed to add book (api)", type: "error"});
             console.log(error);

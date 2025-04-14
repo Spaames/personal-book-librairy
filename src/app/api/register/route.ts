@@ -7,7 +7,7 @@ import {dbName} from "@/utils/mongodb";
  * POST /api/register
  * Body JSON : { username, fistName, lastName, password }
  *
- * Register the user in DB with hashed password and create an epmty library
+ * Register the user in DB with hashed password and create an empty library and wishlist
  */
 
 export async function POST(req: NextRequest) {
@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
         const db = mongoClient.db(dbName);
         const usersCollection = db.collection("users");
         const libraryCollection = db.collection("libraries");
+        const wishlistCollection = db.collection("wishlists");
 
         const existingUser = await usersCollection.findOne({ username });
         if (existingUser) {
@@ -33,6 +34,11 @@ export async function POST(req: NextRequest) {
         const result = await usersCollection.insertOne({ username, firstName, lastName, password: hashedPass });
 
         await libraryCollection.insertOne({
+            username,
+            books: []
+        });
+
+        await wishlistCollection.insertOne({
             username,
             books: []
         });

@@ -1,16 +1,18 @@
-import {BookSearch} from "@/utils/types";
-import React, {useState} from "react";
-import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Select, Button} from "@chakra-ui/react";
+import {Book} from "@/utils/types";
+import React from "react";
+import {Box, Card, CardBody, HStack, Stack, VStack, Image, Text, Button} from "@chakra-ui/react";
 import {fixAmazonUrl} from "@/utils/functions";
+import {useAppDispatch, useAppSelector} from "@/redux/hook";
+import {removeBookThunk} from "@/redux/features/wishlistSlice";
 
-interface BookCardSearchProps {
-    book: BookSearch;
-    onAddBook: (url: string, status: number) => void;
+interface BookCardWishlistProps {
+    book: Book;
+    changeStatus: (book: Book) => void;
 }
 
-export default function BookCardSearch({ book, onAddBook }: BookCardSearchProps) {
-    const [selectedCategory, setSelectedCategory] = useState<number>(0);
-
+export default function BookCardWishlist({ book, changeStatus}: BookCardWishlistProps) {
+    const dispatch = useAppDispatch();
+    const username = useAppSelector((state) => state.auth.user.username);
 
     return (
         <Card mb={3}>
@@ -41,23 +43,18 @@ export default function BookCardSearch({ book, onAddBook }: BookCardSearchProps)
                         </VStack>
                     </HStack>
                     <VStack align="stretch" spacing={2} mt={{ base: 4, md: 0 }}>
-                        <Select
-                            placeholder="Choisir une catégorie"
-                            w="100%"
-                            onChange={(e) => setSelectedCategory(parseInt(e.target.value))}
-                        >
-                            <option value="1">À lire</option>
-                            <option value="2">Lu</option>
-                            <option value="3">À acheter</option>
-                            <option value="4">En cours de lecture</option>
-                        </Select>
                         <Button
                             colorScheme="blue"
-                            onClick={() => selectedCategory !== 0 && onAddBook(book.book_url, selectedCategory)}
+                            onClick={() =>  changeStatus(book)}
                             w="100%"
-                            isDisabled={selectedCategory === 0}
                         >
-                            Ajouter à la bibliothèque
+                            Ajouter à la librarie
+                        </Button>
+                        <Button
+                            colorScheme="red"
+                            onClick={() => dispatch(removeBookThunk(book.ean, username))}
+                        >
+                            Supprimer
                         </Button>
                     </VStack>
                 </Stack>

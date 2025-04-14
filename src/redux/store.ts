@@ -3,16 +3,18 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "@/redux/features/authSlice";
 import libraryReducer from "@/redux/features/librarySlice";
+import wishlistReducer from "@/redux/features/wishlistSlice"
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["auth", "library"],
+    whitelist: ["auth", "library", "wishlist"],
 };
 
 const rootReducer = combineReducers({
     auth: authReducer,
     library: libraryReducer,
+    wishlist: wishlistReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

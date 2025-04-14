@@ -118,3 +118,5 @@ export const removeBookThunk = (bookEan: string, username: string): AppThunk => 
         dispatch(failureThunk('Error w THUNK: removeBookThunk'))
     }
 }
+
+export default wishlistSlice.reducer;
