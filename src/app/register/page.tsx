@@ -56,7 +56,7 @@ export default function RegisterPage() {
                 boxShadow="lg"
             >
                 <Box textAlign="center" mb={6}>
-                    <Heading>Register</Heading>
+                    <Heading>Créer son compte</Heading>
                 </Box>
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={4}>
@@ -70,7 +70,7 @@ export default function RegisterPage() {
                             />
                         </FormControl>
                         <FormControl id="firstName" isRequired>
-                            <FormLabel>First Name</FormLabel>
+                            <FormLabel>Prénom</FormLabel>
                             <Input
                                 type="text"
                                 value={firstName}
@@ -78,7 +78,7 @@ export default function RegisterPage() {
                             />
                         </FormControl>
                         <FormControl id="lastName" isRequired>
-                            <FormLabel>Last Name</FormLabel>
+                            <FormLabel>Nom</FormLabel>
                             <Input
                                 type="text"
                                 value={lastName}
@@ -86,7 +86,7 @@ export default function RegisterPage() {
                             />
                         </FormControl>
                         <FormControl id="password" isRequired>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Mot de passe</FormLabel>
                             <Input
                                 type="password"
                                 value={password}
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                             />
                         </FormControl>
                         <FormControl id="confirm-password" isRequired>
-                            <FormLabel>Confirm Password</FormLabel>
+                            <FormLabel>Confirmer le mot de passe</FormLabel>
                             <Input
                                 type="password"
                                 value={confirmPassword}
@@ -106,14 +106,14 @@ export default function RegisterPage() {
                             type="submit"
                             width="full"
                         >
-                            Register
+                            Créer son compte
                         </Button>
                     </Stack>
                 </form>
                 <Text mt={4} textAlign="center">
-                    Already have an account?{" "}
+                    Vous avez déjà un compte{" "}
                     <Link as={NextLink} href="/login" color="teal.500" fontWeight="bold">
-                        Sign in instead
+                        Connectez vous plutôt
                     </Link>
                 </Text>
             </Box>

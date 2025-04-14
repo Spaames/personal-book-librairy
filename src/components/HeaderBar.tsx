@@ -16,11 +16,10 @@ import {
     Spacer,
     VStack,
     HStack,
-    Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useAppDispatch } from "@/redux/hook";
 import { logoutThunk } from "@/redux/features/authSlice";
 
 export default function HeaderBar() {
@@ -42,8 +41,8 @@ export default function HeaderBar() {
         <Box as="header" px={4} py={3} boxShadow="md" position="sticky" top={0} zIndex={100}>
             <Flex align="center" justify="space-between">
                 <HStack cursor="pointer" onClick={goHome} _hover={{bg: "gray.700", borderRadius: "md", transition: "0.2s"}}>
-                    <Image src="/logo.png" alt="Logo" boxSize="32px" fallback={<Box fontSize="2xl">📚</Box>} />
-                    {!isMobile && <Heading size="md">Home</Heading>}
+                    <Box fontSize="2xl">📚</Box>
+                    {!isMobile && <Heading size="md">Accueil</Heading>}
                 </HStack>
 
                 {isMobile ? (

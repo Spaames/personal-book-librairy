@@ -55,7 +55,7 @@ const Page = () => {
                             />
                         </FormControl>
                         <FormControl id="password" isRequired>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Mot de passe</FormLabel>
                             <Input
                                 type="password"
                                 value={password}
@@ -68,14 +68,14 @@ const Page = () => {
                             width="full"
                             isLoading={loading}
                         >
-                            Login
+                            Se Connecter
                         </Button>
                     </Stack>
                 </form>
                 <Text mt={4} textAlign="center">
-                    Dont have an account?{" "}
+                    Vous n'avez pas encore de compte?{" "}
                     <Link as={NextLink} href="/register" color="teal.500" fontWeight="bold">
-                        Sign up instead
+                        Créer votre compte plutôt
                     </Link>
                 </Text>
             </Box>

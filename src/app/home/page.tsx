@@ -18,10 +18,10 @@ export default function Page() {
                 height={{ base: "auto", md: "90vh" }}
                 p={4}
             >
-                <HomeButton text={"Library"} colorScheme={"blue"} url={"/library"} />
-                <HomeButton text={"Add Book"} colorScheme={"blue"} url={"/addBookLib"} />
-                <HomeButton text={"Wishlist"} colorScheme={"blue"} url={"/wishlist"} />
-                <HomeButton text={"Account"} colorScheme={"blue"} url={"/account"} />
+                <HomeButton text={"Ma Librairie"} colorScheme={"blue"} url={"/library"} />
+                <HomeButton text={"Ajouter un Livre"} colorScheme={"blue"} url={"/addBookLib"} />
+                <HomeButton text={"Liste de Souhait"} colorScheme={"blue"} url={"/wishlist"} />
+                <HomeButton text={"Mon Compte"} colorScheme={"blue"} url={"/account"} />
             </Box>
         </Box>
     )
