@@ -15,6 +15,7 @@ export default function Page(){
     const library = useAppSelector((state) => state.library.books);
     const username = useAppSelector((state) => state.auth.user.username);
 
+    //get the books and set up the filter
     useEffect(() => {
         dispatch(getLibrary(username));
     }, [dispatch, username]);
@@ -36,6 +37,7 @@ export default function Page(){
         setFilteredLibrary(filterStatus(status));
     }
 
+    //change the status for the book in the lib
     const handleChangeStatus = (book: Book, status: number) => {
         dispatch(updateStatusThunk(book.ean, status, username));
     }

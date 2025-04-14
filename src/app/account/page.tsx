@@ -24,6 +24,7 @@ export default function Page() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const username = useAppSelector(state => state.auth.user.username);
 
+    //delete the account, logout and redirect to login for smooth transitions
     const handleDelete = () => {
         dispatch(deleteAccountThunk(username));
         dispatch(logoutThunk());

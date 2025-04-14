@@ -1,21 +1,11 @@
 'use client'
 
 
-import {Box, Button, Heading} from "@chakra-ui/react";
-import {useAppDispatch} from "@/redux/hook";
-import {logoutThunk} from "@/redux/features/authSlice";
-import {useRouter} from "next/navigation";
+import {Box} from "@chakra-ui/react";
 import HomeButton from "@/components/HomeButton";
 import HeaderBar from "@/components/HeaderBar";
 
 export default function Page() {
-    const dispatch = useAppDispatch();
-    const router = useRouter();
-
-    const handleLogout = () => {
-        dispatch(logoutThunk());
-        router.push("/login");
-    }
 
     return (
         <Box>

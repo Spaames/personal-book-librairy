@@ -19,6 +19,7 @@ export default function Page() {
         dispatch(getWishlistThunk(username));
     }, [dispatch, username]);
 
+    //since we got it, add the book to the library and remove it from the wishlist
     const handleChangeStatus = (book: Book) => {
         dispatch(addBookThunk(book, username));
         dispatch(removeBookThunk(book.ean, username));
