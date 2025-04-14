@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from "@/redux/store";
 import {User} from "@/utils/types";
+import {deleteBookSuccess} from "@/redux/features/librarySlice";
 
 interface AuthState {
     isAuthenticated: boolean;
@@ -43,13 +44,19 @@ const authSlice = createSlice({
             state.error = null;
             state.user.username = "";
             state.isAuthenticated = false;
-        }
+        },
+        deleteAccountSuccess(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = null;
+            state.user.username = "";
+            state.isAuthenticated = false;
+        },
     },
 });
 
 export const {
     startThunk, failureThunk,
-    loginSuccess, registerSuccess, logoutSuccess,
+    loginSuccess, registerSuccess, logoutSuccess, deleteAccountSuccess,
 } = authSlice.actions;
 
 /*
@@ -119,6 +126,29 @@ export const logoutThunk = () : AppThunk => async (dispatch) => {
         dispatch(failureThunk('Error w THUNK: logout'));
     }
 }
+
+export const deleteAccountThunk = (username: string): AppThunk => async (dispatch) => {
+    try {
+        dispatch(startThunk());
+        const response = await fetch('/api/deleteAccount', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            dispatch(deleteAccountSuccess(data.username));
+        } else {
+            dispatch(failureThunk(data.message));
+        }
+    } catch (error) {
+        console.error(error);
+        dispatch(failureThunk('Error w THUNK: deleteAccount'));
+    }
+}
+
 
 
 
