@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from "@/redux/store";
 import {User} from "@/utils/types";
-import {deleteBookSuccess} from "@/redux/features/librarySlice";
 
 interface AuthState {
     isAuthenticated: boolean;
@@ -45,7 +44,7 @@ const authSlice = createSlice({
             state.user.username = "";
             state.isAuthenticated = false;
         },
-        deleteAccountSuccess(state, action: PayloadAction<string>) {
+        deleteAccountSuccess(state) {
             state.loading = false;
             state.error = null;
             state.user.username = "";

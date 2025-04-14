@@ -73,7 +73,7 @@ const Page = () => {
                     </Stack>
                 </form>
                 <Text mt={4} textAlign="center">
-                    Vous n'avez pas encore de compte?{" "}
+                    Pas encore de compte?{" "}
                     <Link as={NextLink} href="/register" color="teal.500" fontWeight="bold">
                         Créer votre compte plutôt
                     </Link>
