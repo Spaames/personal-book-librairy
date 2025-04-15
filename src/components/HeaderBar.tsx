@@ -16,8 +16,9 @@ import {
     Spacer,
     VStack,
     HStack,
+    useColorMode,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hook";
 import { logoutThunk } from "@/redux/features/authSlice";
@@ -27,6 +28,7 @@ export default function HeaderBar() {
     const isMobile = useBreakpointValue({ base: true, md: false });
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { colorMode, toggleColorMode } = useColorMode(); // Hook pour gérer le mode sombre/clair
 
     const handleLogout =  () => {
         dispatch(logoutThunk());
@@ -76,6 +78,13 @@ export default function HeaderBar() {
                     </>
                 ) : (
                     <Flex align="center" gap={4}>
+                        {/* Button to toggle color mode */}
+                        <IconButton
+                            aria-label="Toggle dark/light mode"
+                            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                            onClick={toggleColorMode}
+                            variant="ghost"
+                        />
                         <Spacer />
                         <Button colorScheme="red" variant="solid" onClick={handleLogout}>
                             Déconnexion
