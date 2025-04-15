@@ -24,7 +24,7 @@ export default function Page() {
         if (!query) return;
         setAlert(null);
         try {
-            const response = await fetch(`http://193.108.53.171:5000/search?query=${query}`);
+            const response = await fetch(`https://scraping-api-babelio.rdkaizen.fr/search?query=${query}`);
             const data = await response.json();
             setSearchResults(data);
         } catch (error) {
@@ -36,7 +36,7 @@ export default function Page() {
     //get all data for the specific book, add the selected status and push it to the library in DB
     const handleAddBook = async (url: string, status: number) => {
         try {
-            const response = await fetch(`http://193.108.53.171:5000/book?query=${url}`);
+            const response = await fetch(`https://scraping-api-babelio.rdkaizen.fr/book?query=${url}`);
             const data = await response.json();
             const book: Book = {
                 ean: data.ean,
