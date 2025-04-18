@@ -57,7 +57,7 @@ export default function HeaderBar() {
                         />
                         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
                             <DrawerOverlay />
-                            <DrawerContent bg="gray.800" color="white">
+                            <DrawerContent>
                                 <DrawerHeader display="flex" justifyContent="space-between" alignItems="center">
                                     Menu
                                     <IconButton
@@ -70,6 +70,9 @@ export default function HeaderBar() {
                                 <DrawerBody>
                                     <VStack align="start" spacing={4} mt={4}>
                                         <Button variant="ghost" onClick={goHome}>Accueil</Button>
+                                        <Button variant="ghost" onClick={toggleColorMode}>
+                                            {colorMode === "light" ? "Mode sombre 🌙" : "Mode clair ☀️"}
+                                        </Button>
                                         <Button colorScheme="red" onClick={handleLogout}>Déconnexion</Button>
                                     </VStack>
                                 </DrawerBody>
