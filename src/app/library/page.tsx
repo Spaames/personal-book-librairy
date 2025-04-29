@@ -30,7 +30,7 @@ export default function Page(){
     }
 
     const handleFilter= (status: number) => {
-        if (status === 5) {
+        if (status === 6) {
             setFilteredLibrary(library);
             return;
         }

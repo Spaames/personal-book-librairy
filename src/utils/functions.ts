@@ -15,7 +15,9 @@ export const getStatusName = (status: number): string => {
         case 2:
             return "Lu";
         case 4:
-            return "En cours de lecture"
+            return "En cours de lecture";
+        case 5:
+            return "Abandonné";
     }
     return ""
 }

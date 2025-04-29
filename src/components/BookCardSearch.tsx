@@ -50,6 +50,7 @@ export default function BookCardSearch({ book, onAddBook }: BookCardSearchProps)
                             <option value="2">Lu</option>
                             <option value="3">À acheter</option>
                             <option value="4">En cours de lecture</option>
+                            <option value="5">Abandonné</option>
                         </Select>
                         <Button
                             colorScheme="blue"

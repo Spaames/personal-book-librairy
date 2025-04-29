@@ -74,6 +74,7 @@ export default function BookCardLibrary({ book, changeStatus}: BookCardLibraryPr
                                 <option value="1">À lire</option>
                                 <option value="2">Lu</option>
                                 <option value="4">En cours de lecture</option>
+                                <option value={"5"}>Abandonné</option>
                             </Select>
                             <Button
                                 colorScheme="blue"

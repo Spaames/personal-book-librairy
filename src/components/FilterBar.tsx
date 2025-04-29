@@ -7,12 +7,11 @@ interface FilterBarProps {
 
 export default function FilterBar( { filterBook }: FilterBarProps ) {
 
-
     return (
         <Box as="header" position="sticky" top={0} width="100%" boxShadow="md" px={4} py={2} zIndex={10}>
             <Flex maxW="90%" mx="auto" gap={2}>
                 <Button
-                onClick={() => {filterBook(5)}}
+                onClick={() => {filterBook(6)}}
                 >
                     Tous
                 </Button>
@@ -30,6 +29,11 @@ export default function FilterBar( { filterBook }: FilterBarProps ) {
                 onClick={() => {filterBook(4)}}
                 >
                     En cours de lecture
+                </Button>
+                <Button
+                    onClick={() => {filterBook(5)}}
+                >
+                    Abandonné
                 </Button>
             </Flex>
         </Box>
