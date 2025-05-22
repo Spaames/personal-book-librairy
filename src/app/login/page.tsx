@@ -73,6 +73,12 @@ const Page = () => {
                     </Stack>
                 </form>
                 <Text mt={4} textAlign="center">
+                    Si pas de redirection lors de la connexion
+                    <Link as={NextLink} href="/home" color="teal.500" fontWeight="bold">
+                        Cliquez ici !
+                    </Link>
+                </Text>
+                <Text mt={4} textAlign="center">
                     Pas encore de compte?{" "}
                     <Link as={NextLink} href="/register" color="teal.500" fontWeight="bold">
                         Créer votre compte plutôt
